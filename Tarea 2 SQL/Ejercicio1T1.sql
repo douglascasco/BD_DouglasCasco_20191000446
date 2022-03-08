@@ -18,7 +18,7 @@ create table alumno(
 	telefonoEstudiante varchar(13)
     );
 create table alumno_asignatura(
-	numeroCuenta int foreign key references alumno(numeroCuenta),
-	codigo_asignatura varchar(15) foreign key references asignatura(codigo_asignatura) 
+	numeroCuenta int foreign key references alumno(numeroCuenta) not null,
+	codigo_asignatura varchar(15) foreign key references asignatura(codigo_asignatura) not null, 
 	primary key (numeroCuenta,codigo_asignatura)
     );
