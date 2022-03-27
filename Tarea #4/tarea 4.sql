@@ -98,9 +98,9 @@ where pe.id_proveedor IS NULL
 --5. Listar los nombres de los clientes que hayan pedido más de un producto y que el precio sea mayor a 100
 SELECT c.nombre
 FROM cliente c
-JOIN pedido P
+INNER JOIN pedido P
 ON p.id_cliente=c.id_cliente
-JOIN producto pro
+INNER JOIN producto pro
 ON p.id_articulo=pro.id_articulo
 where pro.precio>100
 GROUP BY c.nombre
@@ -121,9 +121,9 @@ where pe.[fecha_pedido] between '01-01-2022' AND '20-03-2022'
 --7. Listar los nombres de los clientes que hayan solicitado más de un producto
 SELECT c.nombre
 FROM cliente c
-JOIN pedido P
+INNER JOIN pedido P
 ON p.id_cliente=c.id_cliente
-JOIN producto pro
+INNER JOIN producto pro
 ON p.id_articulo=pro.id_articulo
 GROUP BY c.nombre
 HAVING COUNT (DISTINCT pro.id_articulo)>1
