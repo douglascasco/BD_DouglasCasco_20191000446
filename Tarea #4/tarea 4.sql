@@ -96,13 +96,15 @@ ON pe.id_proveedor = pro.id_proveedor
 where pe.id_proveedor IS NULL
 
 --5. Listar los nombres de los clientes que hayan pedido más de un producto y que el precio sea mayor a 100
-Select c.nombre,count(*) as num_pedidos
-from producto,pedido pe
-INNER JOIN cliente c
-ON pe.id_cliente= c.id_cliente
-where pe.id_articulo = producto.id_articulo AND producto.precio>100
-group by c.nombre
-having count(*)>1
+SELECT c.nombre
+FROM cliente c
+JOIN pedido P
+ON p.id_cliente=c.id_cliente
+JOIN producto pro
+ON p.id_articulo=pro.id_articulo
+where pro.precio>100
+GROUP BY c.nombre
+HAVING COUNT (DISTINCT pro.id_articulo)>1
 
 /*6. Listar la cantidad y el precio de cada producto que hayan sido pedido por los clientes entre las fechas 01-01-2022 y 
 20-03-2022,se requiere visualizar el nombre del cliente, el nombre del producto, nombre del proveedor,
@@ -117,13 +119,11 @@ inner join producto p ON pe.id_articulo = p.id_articulo
 where pe.[fecha_pedido] between '01-01-2022' AND '20-03-2022'
 
 --7. Listar los nombres de los clientes que hayan solicitado más de un producto
---falta
-select nombre from cliente 
-group by cliente.nombre
-having (select count(*) 
-from producto,pedido pe
-INNER JOIN cliente c
-ON pe.id_cliente= c.id_cliente
-where pe.id_articulo = producto.id_articulo AND producto.precio>100
-group by c.nombre
-having count(*)>1)>1
+SELECT c.nombre
+FROM cliente c
+JOIN pedido P
+ON p.id_cliente=c.id_cliente
+JOIN producto pro
+ON p.id_articulo=pro.id_articulo
+GROUP BY c.nombre
+HAVING COUNT (DISTINCT pro.id_articulo)>1
