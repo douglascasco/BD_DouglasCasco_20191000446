@@ -94,11 +94,14 @@ select *
   /*3.Construya un procedimiento almacenado que filter los empleados que cumpleaños
 cada mes utilizando el BirthDate.*/ 
 Go
-Create Procedure procedimiento3 as
-select *from Employees order by MONTH(BirthDate)
+Create Procedure procedimiento3 
+@mes int
+as
+select *from Employees 
+where MONTH(BirthDate) = @mes
 go
 --ejecución
-execute procedimiento3
+execute procedimiento3 @mes = 3
 
 
 /*4.  Obtener todas las ordenes generadas en una fecha determinada */
